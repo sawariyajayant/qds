@@ -12,8 +12,9 @@ export interface SimulationResponse {
   timestamp: string;
   latency_ms?: number;
   session_hash?: string;
-}
 
+  teleportation?: TeleportationResponse | null;
+}
 export interface RunRecord extends SimulationResponse {
   id: number;
 }
@@ -24,3 +25,53 @@ export const attackLabels: Record<AttackType, string> = {
   replay: "Replay",
   channel_manipulation: "Channel manipulation"
 };
+export interface TeleportationTrial {
+  trial: number;
+
+  bell_measurement: {
+    m1: number;
+    m2: number;
+    bits: string;
+  };
+
+  pauli_correction: {
+    gate: string;
+    label: string;
+    operations: string[];
+  };
+
+  verification: {
+    bit: number;
+    passed: boolean;
+  };
+}
+
+
+export interface TeleportationResponse {
+  protocol: string;
+
+  shots: number;
+
+  teleportation_success_rate: number;
+
+  bell_measurement: {
+    m1: number;
+    m2: number;
+    bits: string;
+  };
+
+  pauli_correction: {
+    gate: string;
+    label: string;
+    operations: string[];
+  };
+
+  verification: {
+    bit: number;
+    passed: boolean;
+  };
+
+  trials: TeleportationTrial[];
+
+  latency_ms: number;
+}
